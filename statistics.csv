@@ -1,0 +1,14 @@
+# Summary statistics for |S_p|/sqrt(p)
+Statistic,Value
+N,111
+Mean_magnitude,1.5026
+Std_magnitude,1.1410
+Median_magnitude,1.3407
+Max_magnitude,8.6462
+Max_prime,283
+Mean_Re,0.3243
+Std_Re,1.5071
+Mean_Im,0.1490
+Std_Im,1.0775
+Mean_magnitude_excl_283,1.4377
+Max_magnitude_excl_283,5.9668

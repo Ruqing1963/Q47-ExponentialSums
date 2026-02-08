@@ -1,0 +1,321 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+
+% Page layout
+\geometry{left=3cm, right=3cm, top=3cm, bottom=3cm}
+
+% Theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}[theorem]{Observation}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+% Title
+\title{\textbf{Exponential Sums of the Titan Polynomial:\\[4pt]
+Numerical Evidence for Non-Generic Monodromy}}
+
+\author{\textbf{Ruqing Chen}\\
+GUT Geoservice Inc., Montreal, Quebec\\
+\texttt{ruqing@hotmail.com}}
+
+\date{February 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present a numerical study of the exponential sums
+$S_p = \sum_{n=0}^{p-1} e^{2\pi i Q(n)/p}$ associated with
+the Titan polynomial $Q(n)=n^{47}-(n-1)^{47}$, a degree-46
+cyclotomic norm form satisfying the palindromic symmetry
+$Q(n) = Q(1-n)$.
+The Weil bound gives $|S_p| \le 45\sqrt{p}$, and the sum
+decomposes into $45$ Frobenius eigenvalues.
+We restrict attention to the $111$ primes $p \equiv 1\pmod{47}$
+up to~$50{,}000$, for which the polynomial retains its full root
+structure modulo~$p$.
+The observed mean normalized magnitude is
+$\overline{|S_p/\sqrt{p}|}\approx 1.50$ and the maximum
+is~$\approx 8.65$ (at $p=283$).
+We compare these statistics with three reference models:
+a Gaussian random walk of $45$ unit vectors
+(expected mean~$\approx 5.97$),
+the compact symplectic group $USp(44)$
+(expected mean~$\approx 3.74$),
+and the Sato--Tate distribution of $SU(2)$
+(applicable to elliptic curves, included as a baseline).
+The observed mean lies significantly below all higher-dimensional
+predictions, suggesting that the geometric monodromy group is a
+proper subgroup of $USp(44)$, constrained by the cyclotomic
+origin of~$Q(n)$.
+\end{abstract}
+
+\medskip
+\noindent\textbf{MSC 2020:} 11L07, 11T23, 11R18
+
+\noindent\textbf{Keywords:} exponential sums, Frobenius eigenvalues,
+monodromy group, Katz--Sarnak philosophy, cyclotomic norm form,
+Sato--Tate distribution, Weil bound
+
+\section{Introduction}
+
+For a polynomial $f(x)$ of degree $d$ over $\mathbb{F}_p$, the additive exponential sum
+\[
+S_p(f) = \sum_{n=0}^{p-1} \exp\!\left(\frac{2\pi i f(n)}{p}\right)
+\]
+encodes deep arithmetic information. By the Weil--Deligne theorem \cite{Deligne1974}, if $\gcd(d, p) = 1$, then
+\[
+|S_p(f)| \le (d-1)\sqrt{p}.
+\]
+The sum decomposes as $S_p = -1 + \sum_{j=1}^{d-1} \alpha_j(p)$, where the Frobenius eigenvalues satisfy $|\alpha_j(p)| = \sqrt{p}$.
+
+The Katz--Sarnak philosophy \cite{KatzSarnak} predicts that as $p \to \infty$, the conjugacy class of normalized Frobenius $(\alpha_1/\sqrt{p}, \ldots, \alpha_{d-1}/\sqrt{p})$ becomes equidistributed in a compact group $G$ (the \emph{geometric monodromy group}) according to Haar measure. The distribution of $S_p/\sqrt{p}$ is then determined by the trace distribution of~$G$.
+
+For the Titan polynomial $Q(n) = n^{47} - (n-1)^{47}$ of degree $d = 46$, we have $d-1 = 45$ Frobenius eigenvalues.
+A key structural feature is the \emph{palindromic symmetry}
+$Q(n) = Q(1-n)$, which implies that the exponential sum satisfies
+$S_p = \overline{S_p}$ when $-1$ is a $47$-th power modulo~$p$.
+More precisely, by a theorem of Katz~\cite{KatzSarnak}, the
+geometric monodromy group of the exponential sum family of a
+polynomial~$f$ of degree~$d$ is generically $Sp(d-2)$ when~$f$
+has odd degree, or lies in $O(d-1)$ when~$f$ has even degree and
+certain additional symmetries hold.
+Since $\deg(Q) = 46$ is even but $Q$ arises from the
+$47$th~cyclotomic polynomial $\Phi_{47}$ (of odd prime order),
+the natural functional equation symmetry is symplectic:
+the monodromy group is expected to lie in $USp(44)$
+rather than $O(45)$ or $SU(45)$.
+This paper presents numerical evidence characterizing the distribution of $S_p/\sqrt{p}$ and its implications for the monodromy group.
+
+\section{Setup and Effective Primes}
+
+\subsection{The Exponential Sum}
+We study the normalized variable
+\[
+x_p = \frac{S_p}{\sqrt{p}}, \quad \text{where} \quad
+S_p = \sum_{n=0}^{p-1} \exp\!\left(\frac{2\pi i\, Q(n)}{p}\right).
+\]
+The Weil bound gives $|x_p| \le 45$.
+
+\subsection{Restriction to $p \equiv 1 \pmod{47}$}
+
+For primes $p \not\equiv 1 \pmod{47}$ (with $p \ne 47$), the map $n \mapsto n^{47}$ is a bijection on $\mathbb{F}_p$ (since $\gcd(47, p-1) = 1$). While the sum $S_p$ is \emph{not} trivial in this case, the bijection creates additional symmetries in the Frobenius eigenvalue structure that complicate the equidistribution analysis.
+
+For $p \equiv 1 \pmod{47}$, the 47th-power map has a non-trivial kernel of order~47, and $Q(n)$ has $\omega_Q(p) = 46$ roots modulo~$p$ \cite{ChenTitan}. All 45 Frobenius eigenvalues are ``fully active'' without degeneracy imposed by the power map.
+
+We therefore restrict to
+\[
+\mathcal{P}_{\mathrm{eff}} = \{ p \le 50{,}000 : p \equiv 1 \pmod{47} \},
+\]
+which contains $N = 111$ primes.
+
+\section{Experimental Results}
+
+\subsection{Statistical Summary}
+
+Table~\ref{tab:stats} reports the observed statistics of $|x_p| = |S_p|/\sqrt{p}$ and compares them with three theoretical reference distributions.
+
+\begin{table}[h]
+\centering
+\caption{Observed statistics of $|S_p|/\sqrt{p}$ compared with
+theoretical models for $45$ Frobenius eigenvalues.}
+\label{tab:stats}
+\begin{tabular}{lcccc}
+\toprule
+Metric & \textbf{Observed} & Gaussian RW & $USp(44)$ & $SU(2)$\textsuperscript{$\dagger$} \\
+\midrule
+Mean $\mu$ & $\mathbf{1.50}$ & $\approx 5.97$ & $\approx 3.74$ & $0.85$ \\
+Max & $\mathbf{8.65}$ & (unbounded) & 45.0 & 2.0 \\
+Weil bound & 45.0 & $\infty$ & 45.0 & 2.0 \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+{\footnotesize $\dagger$ $SU(2)$ applies to elliptic curves
+(rank~1, degree~3); included as a pedagogical baseline only.}
+\end{table}
+
+Here:
+\begin{itemize}
+\item \textbf{Gaussian Random Walk}: The modulus of a sum of $45$
+independent random unit vectors in~$\mathbb{C}$.
+Each vector has expected modulus $\sqrt{\pi/2}\approx 0.89$;
+the total sum has expected modulus
+$\sqrt{\pi/2}\times\sqrt{45}\approx 5.97$.
+This models maximal randomness with no correlations among the
+Frobenius eigenvalues.
+\item $\boldsymbol{USp(44)}$: The expected trace distribution if
+the monodromy group were the full compact symplectic group of
+rank~22.
+By the Central Limit Theorem for high-rank groups,
+$E[|\mathrm{Tr}(U)|] \approx \sqrt{44/\pi} \approx 3.74$.
+The palindromic symmetry $Q(n)=Q(1-n)$ provides the structural
+reason to expect symplectic rather than unitary monodromy.
+\item $\boldsymbol{SU(2)}$: The Sato--Tate distribution
+\cite{Taylor2008} with
+$E[|a_p|/\sqrt{p}] = 8/(3\pi) \approx 0.85$ and strict bound
+$|a_p|/\sqrt{p} \le 2$.
+This applies to elliptic curves (degree~3, single Frobenius
+eigenvalue pair) and is included only for reference.
+\end{itemize}
+
+\begin{observation}[Sub-Generic Mean]
+The observed mean $\mu \approx 1.50$ lies well below the $USp(44)$ prediction of $\approx 3.74$. This suggests that the geometric monodromy group of $Q(n)$ is a \emph{proper subgroup} of $USp(44)$, whose trace distribution is more concentrated near the origin.
+\end{observation}
+
+\begin{observation}[The $p = 283$ Outlier]
+The maximum $|S_p|/\sqrt{p} \approx 8.65$ occurs at $p = 283$,
+the smallest prime in $\mathcal{P}_{\mathrm{eff}}$.
+At this prime, $Q(n)$ takes only 19 distinct values modulo~283
+(out of 283 possible), with the value~0 occurring 46 times.
+This extreme concentration of values produces strong constructive
+interference.
+Excluding $p = 283$, the maximum drops to $\approx 5.97$
+(at $p = 6581$) and the mean decreases to $\approx 1.44$.
+\end{observation}
+
+\subsection{Distribution of $|S_p|/\sqrt{p}$}
+
+Figure~\ref{fig:dist} shows the four-panel distribution of $S_p/\sqrt{p}$ in the complex plane.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{expsum_figure.pdf}
+\caption{Distribution of normalized exponential sums
+$S_p/\sqrt{p}$ for the $111$ primes $p \equiv 1\pmod{47}$,
+$p \le 50{,}000$.
+\textbf{(a)}~Histogram of $\mathrm{Re}(S_p)/\sqrt{p}$ with
+standard Gaussian overlay (red dashed).
+\textbf{(b)}~Histogram of $\mathrm{Im}(S_p)/\sqrt{p}$ with
+Gaussian overlay.
+\textbf{(c)}~Scatter plot in the complex plane, color-coded by
+prime size; dashed circles at $|S_p|/\sqrt{p}=2,4,6,8$;
+the $p=283$ outlier is labelled.
+\textbf{(d)}~Histogram of $|S_p|/\sqrt{p}$ with vertical lines
+marking the observed mean ($\approx 1.50$, solid),
+$USp(44)$ prediction ($\approx 3.74$, dashed), and Gaussian
+random walk prediction ($\approx 5.97$, dot-dash).
+The concentration of the distribution well below both
+higher-dimensional predictions is clearly visible.
+(Note: with $N=111$ data points, the histogram shape should
+not be over-interpreted; the vertical line positions---i.e.\
+the mean---are the robust quantities.)}
+\label{fig:dist}
+\end{figure}
+
+\section{Discussion}
+
+\subsection{Monodromy Group Constraints}
+
+For a ``generic'' polynomial of degree 46, Katz's
+theorem~\cite{KatzSarnak} predicts that the geometric monodromy
+group is either $Sp(44)$ or $SU(45)$, depending on the
+functional equation symmetry.
+The palindromic property $Q(n)=Q(1-n)$ selects the symplectic
+case, so $USp(44)$ is the natural generic baseline for~$Q$.
+
+The observed mean of~$\approx 1.50$ is significantly below both
+the $USp(44)$ prediction ($\approx 3.74$) and the Gaussian random
+walk prediction ($\approx 5.97$ for $45$ independent eigenvalues).
+This indicates a degree of cancellation among the Frobenius
+eigenvalues far exceeding what either model produces.
+
+A natural explanation is that the associated algebraic variety
+undergoes a \emph{Jacobian decomposition}: because
+$Q(n) = \Phi_{47}(n/(n-1))$ is built from the $47$th cyclotomic
+polynomial, the Jacobian of the associated curve may split into
+lower-dimensional abelian varieties with complex multiplication
+(CM) by~$\mathbb{Q}(\zeta_{47})$.
+If the Jacobian decomposes into~$k$ independent sub-varieties,
+the exponential sum becomes a superposition of~$k$ lower-rank
+traces, each with smaller variance, reducing the overall
+mean magnitude.
+
+\begin{conjecture}[Jacobian Splitting]
+The geometric monodromy group of the exponential sum family
+$\{S_p(Q)\}$ is a proper subgroup of $USp(44)$, arising from
+a nontrivial decomposition of the associated Jacobian variety
+into CM abelian sub-varieties indexed by the characters
+of~$(\mathbb{Z}/47\mathbb{Z})^\times$.
+\end{conjecture}
+
+\subsection{Relation to the Shielding Property}
+
+The shielding property ($\omega_Q(p) = 0$ for $p < 283$)
+established in~\cite{ChenTitan} is a statement about the
+\emph{zeros} of $Q(n) \pmod{p}$.
+The exponential sum $S_p$ encodes all values of
+$Q(n) \pmod{p}$, not just the zeros.
+Nevertheless, the two phenomena share a common origin: the
+factorization $Q(n) = \Phi_{47}(n/(n-1))$ (in projective terms)
+ties the arithmetic of $Q$ to the 47th cyclotomic field, imposing
+constraints on both the root structure and the Frobenius
+eigenvalues.
+
+\section{Conclusion}
+
+Numerical computation of exponential sums for the Titan polynomial
+reveals a distribution that is neither Sato--Tate ($SU(2)$) nor
+generic symplectic ($USp(44)$).
+The observed mean $\overline{|S_p|/\sqrt{p}} \approx 1.50$
+lies well below the $USp(44)$ prediction ($\approx 3.74$) and
+the uncorrelated random walk prediction ($\approx 5.97$),
+suggesting a monodromy group that is a proper, arithmetically
+constrained subgroup of the expected symplectic group.
+
+We note that the sample size ($N = 111$ primes) limits the
+precision of distributional shape analysis; the mean and
+maximum statistics are more robust.
+Extending the computation to larger prime ranges, and determining
+the precise monodromy group from the cyclotomic structure
+of~$Q(n)$, are natural directions for future work.
+
+\medskip
+\noindent\textbf{Data availability.}
+The \LaTeX{} source, computed data, and SageMath/Python scripts
+are available at:
+\begin{center}
+\url{https://github.com/Ruqing1963/Q47-ExponentialSums}
+\end{center}
+
+\begin{thebibliography}{9}
+
+\bibitem{KatzSarnak}
+N.\,M. Katz and P. Sarnak,
+\textit{Random Matrices, Frobenius Eigenvalues, and Monodromy},
+AMS Colloquium Publications, Vol.~45, 1999.
+
+\bibitem{Deligne1974}
+P. Deligne,
+\textit{La conjecture de Weil.~I},
+Publ.\ Math.\ IH\'ES \textbf{43} (1974), 273--307.
+
+\bibitem{Taylor2008}
+R. Taylor,
+\textit{Automorphy for some $\ell$-adic lifts of automorphic mod~$\ell$ Galois representations.~II},
+Publ.\ Math.\ IH\'ES \textbf{108} (2008), 183--239.
+
+\bibitem{ChenTitan}
+R.~Chen,
+\textit{Prime Values of a Cyclotomic Norm Polynomial and a
+Conjectural Bounded Gap Phenomenon},
+Preprint (2026),
+\url{https://zenodo.org/records/18521551}.
+
+\end{thebibliography}
+
+\end{document}
